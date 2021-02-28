@@ -198,7 +198,7 @@ input[type="submit"]:hover {
   }
 
   h1 {
-    font-size: 40px;
+    font-size: 35px;
     padding: 10px;
     margin-bottom: 0px;
   }
@@ -206,15 +206,15 @@ input[type="submit"]:hover {
   h3 {
     padding-left: 3%;
     padding-right: 3%;
-    font-size: 28px;
+    font-size: 25px;
   }
 
   h3.a {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   h3.b {
-    font-size: 25px;
+    font-size: 20px;
   }
 
   .column.image img {
