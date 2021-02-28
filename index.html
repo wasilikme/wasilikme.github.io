@@ -22,106 +22,77 @@
         });
     </script>
     <title>Midnight Bluesmen</title>
-    <style>
-        h1 {
-            font-family: "Great Vibes", sans-serif;
-            font-size: 80px;
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+
+        const baseUri = 'https://textwidget-1acfa-default-rtdb.firebaseio.com/emails.json';
+        var input_data;
+
+        function newEmail(inputEmail, inputName) {
+            console.log(inputEmail, inputName);
+            let name = inputName;
+            let email = inputEmail;
+            $.ajax({
+                type: "GET",
+                url: baseUri,
+                success: function (data, status) {
+                    let length = Object.keys(data).length + 1;
+                    let emailString = `email${length}`;
+                    input_data = {};
+                    input_data[emailString] = { email: email, name: name };
+                    input_data = JSON.stringify(input_data);
+                    $.ajax({
+                        type: "PATCH",
+                        url: baseUri,
+                        data: input_data,
+                        success: function (data, status) {
+                            console.log(`${data} and status is ${status}`);
+                        },
+                    });
+                }
+            })
+
+            return 0;
+
+        };
+
+        function sleep(milliseconds) {
+            const date = Date.now();
+            let currentDate = null;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < milliseconds);
         }
 
-        h1.a {
-            font-size: 60px;
-        }
 
-        h2 {
-            font-family: "Permanent Marker", sans-serif;
-            font-size: 40px;
-        }
+        function ValidateEmail(inputEmail, inputName) {
+            var mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            if (inputEmail.value.match(mailformat)) {
+                // document.form.email.focus();
+                newEmail(inputEmail.value, inputName.value);
+                // sleep(2000);
+                // alert("You're registered!");
+                return true;
 
-        h3 {
-            font-family: "Cardo", sans-serif;
-            font-size: 20px;
-        }
 
-        h3.a {
-
-            font-size: 18px;
-        }
-
-        h3.b {
-            font-size: 16px;
-        }
-
-        .button {
-            font-family: "Changa One", sans-serif;
-            font-size: 25px;
-        }
-
-        @media screen and (orientation: portrait) {
-
-            .column {
-                width: 100%;
             }
-
-            .column.image {
-                width: 100%;
-            }
-
-            .column.description {
-                width: 100%;
-                text-align: center;
-                padding-left: 0;
-            }
-
-            h3 {
-                padding-left: 3%;
-                padding-right: 3%;
-            }
-
-            .column.image img {
-                margin-left: 0;
-            }
-
-            #hide {
-                display: none;
+            else {
+                alert("You have entered an invalid email address!");
+                // document.form1.text1.focus();
+                return false;
             }
         }
 
-        @media screen and (max-width: 1000px) {
-
-            .column {
-                width: 100%;
-            }
-
-            .column.image {
-                width: 100%;
-            }
-
-            .column.description {
-                width: 100%;
-                text-align: center;
-                padding-left: 0;
-            }
-
-            h3 {
-                padding-left: 3%;
-                padding-right: 3%;
-            }
-
-            .column.image img {
-                margin-left: 0;
-            }
-
-            #hide {
-                display: none;
-            }
-        }
-    </style>
+    </script>
 </head>
 
 <body>
+
     <div class="row white" style="background-color: black">
         <div class="column left">
-            <img src="images/midnightbluesmentemp.png" class="image" />
+            <img src="images/midnightbluesmentemp.png" class="image" id="logo" />
             <div class="grid">
                 <a href="https://www.facebook.com/midnightbluesmen" target="_blank"><img src="images/facebookicon.png"
                         alt="Facebook Link" /></a>
@@ -136,7 +107,9 @@
                 merch!</a>
         </div>
         <div class="column right">
-            <h1 class="white">The Bluesmen of Newport News!</h1>
+            <a href="#endofpage" style="text-decoration: none;">
+                <h1 class="white">The Bluesmen of Newport News!</h1>
+            </a>
             <div class="row">
                 <div class="column left">
                     <h2>Who we are</h2>
@@ -150,7 +123,7 @@
                         selection of both original songs and covers of our favorites!
                         </p1>
                         <h2>How to book us</h2>
-                        <h3 class="a">
+                        <h3 class="a" id="endoffirst">
                             We're always looking for places to perform! You can contact us at <a
                                 href="mailto: midnightbluesmen@gmail.com" class="white">midnightbluesmen@gmail.com</a>
                         </h3>
@@ -164,82 +137,68 @@
 
     <div class="row black" style="background-color: #fff1d9;">
         &nbsp;
-        <h1 class="a" style="padding-top: 0%;">Current Members</h1>
-        <div class="column equal">
 
-            <div class="column image">
-                <img src="images/File_003.jpeg">
-            </div>
+        <h1 class="a">Current Members</h1>
 
-            <div class="column description">
+        <div class="container">
+            <img src="images/File_003.jpeg">
+            <div class="col">
                 <h3>Max Wasilik (lead guitar &amp; vocals)</h3>
                 <h3 class="b">Max is a currently-enrolled Sophomore at CNU. </h3>
             </div>
-
-        </div>
-        <div class="column equal">
-
-            <div class="column image">
-                <img src="images/File_001.jpeg">
-
-            </div>
-            <div class="column description">
+            <img src="images/File_001.jpeg">
+            <div class="col">
                 <h3>Sean Hartigan (vocals &amp; management)</h3>
                 <h3 class="b">Sean is a currently-enrolled Sophomore at CNU. </h3>
             </div>
         </div>
 
-        <div class="column equal">
-
-            <div class="column image">
-                <img src="images/File_004.jpeg">
-            </div>
-
-            <div class="column description">
+        <div class="container">
+            <img src="images/File_004.jpeg">
+            <div class="col">
                 <h3>Ben Harrison (keys)</h3>
                 <h3 class="b">Ben is a currently-enrolled Sophomore at CNU. </h3>
             </div>
-
-        </div>
-        <div class="column equal">
-
-            <div class="column image">
-                <img src="images/File_007.jpeg">
-
-            </div>
-            <div class="column description">
+            <img src="images/File_007.jpeg">
+            <div class="col">
                 <h3>Jared Zupan (bass guitar)</h3>
                 <h3 class="b">Jared is a currently-enrolled Sophomore at CNU. </h3>
             </div>
         </div>
 
-        <div class="column equal">
-
-            <div class="column image">
-                <img src="images/File_006.jpeg">
-            </div>
-
-            <div class="column description">
+        <div class="container" style="padding-bottom: 70px;">
+            <img src="images/File_006.jpeg">
+            <div class="col">
                 <h3>Ciaran Morris (rhythm guitar)</h3>
                 <h3 class="b">Ciaran is a currently-enrolled Sophomore at CNU. </h3>
             </div>
-
-        </div>
-        <div class="column equal">
-
-            <div class="column image">
-                <img src="images/File_000.jpeg">
-
-            </div>
-            <div class="column description">
+            <img src="images/File_000.jpeg">
+            <div class="col">
                 <h3>Ben Kostelancik (drums)</h3>
                 <h3 class="b">Ben is a currently-enrolled Sophomore at CNU. </h3>
             </div>
         </div>
 
-        &nbsp;
+        <!-- <form name="form">
 
+            <div class="row black" style="margin-top: 80px">
+                <h1 class="a">Add to email list</h1>
+                <h3 class="a">Placeholder</h3>
+            </div>
 
+            <div class="row black">
+                <input type="text" placeholder="Name" name="name" required>
+                <br>
+                <input type="text" placeholder="Email address" name="email" required>
+
+            </div>
+
+            <div class="row black" style="padding-bottom: 50px;">
+                <input type="submit" name="submit" value="Subscribe"
+                    onclick="ValidateEmail(document.form.email, document.form.name)" />
+            </div>
+            <a id="endofpage"></a>
+        </form> -->
 
     </div>
 </body>
