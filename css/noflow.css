@@ -125,7 +125,7 @@ form {
 }
 
 input[type="text"],
-input[type="submit"] {
+.subscribe {
   width: 40%;
   padding: 12px;
   margin: 8px 0;
@@ -136,11 +136,17 @@ input[type="submit"] {
   font-size: 15px;
 }
 
-input[type="submit"] {
+.subscribe {
   background-color: #4caf50;
   width: 40%;
   color: white;
   border: none;
+}
+
+.unsub {
+  font-family: "Cardo", sans-serif;
+  font-size: 15px;
+  margin-bottom: 0px;
 }
 
 input[type="submit"]:hover {
@@ -254,5 +260,9 @@ input[type="submit"]:hover {
   input[type="text"],
   input[type="submit"] {
     width: 80%;
+  }
+
+  .news {
+    font-size: 20px;
   }
 }
